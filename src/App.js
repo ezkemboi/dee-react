@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { Button, Form } from 'react-bootstrap';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <h3>Welcome to App The Deezer</h3>
+      <p>Helps you search for songs by your artist</p>
+      <div>
+        <Form.Control
+          type="text"
+          placeholder="search by artist"
+          style={{
+            marginRight: '10px',
+            padding: '5px'
+          }} 
+        />
+        <Button
+          variant="primary"
         >
-          Learn React
-        </a>
-      </header>
+          Search
+        </Button>
+      </div>
     </div>
   );
 }
