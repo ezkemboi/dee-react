@@ -5,16 +5,14 @@ import {
   Button, Form, Card,
   Row, Col
 } from 'react-bootstrap';
-import json from './jj.json'
+import axios from 'axios';
 
 const App = () => {
   const [name, setName] = React.useState("");
   const [songs, setSongs] = React.useState([])
-  const findTracks = () => {
-    console.log(name) // send to AWS endpoints
-    // name, duration - name of album
-    console.log({ json })
-    setSongs(json.data);
+  const findTracks = async () => {
+    const response = await axios.get(`${process.env.REACT_APP_MAIN_URL}/artists?artistName=${name}`);
+    setSongs(response.data);
   }
 
   return (
@@ -59,7 +57,7 @@ const App = () => {
                       <Card.Body>
                         <Card.Text>{song.duration}</Card.Text>
                         <Card.Title>{song.title_short}</Card.Title>
-                        <Card.Text>By {song.artist.name}</Card.Text>
+                        <Card.Link style={{ cursor: 'pointer' }}>By {song.artist.name}</Card.Link>
                       </Card.Body>
                     </Card>
                   </Col>
