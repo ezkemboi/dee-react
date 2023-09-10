@@ -6,10 +6,12 @@ import {
   Row, Col
 } from 'react-bootstrap';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const [name, setName] = React.useState("");
-  const [songs, setSongs] = React.useState([])
+  const [songs, setSongs] = React.useState([]);
+  const navigate = useNavigate();
   const findTracks = async () => {
     const response = await axios.get(`${process.env.REACT_APP_MAIN_URL}/artists?artistName=${name}`);
     setSongs(response.data);
@@ -17,7 +19,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h3>Welcome to App The Deezer</h3>
+      <h3 className='text-primary'>Welcome to App The Deezer</h3>
       <p>Helps you search for songs by your artist</p>
       <div className='form-control'>
         <Form.Control
@@ -44,6 +46,7 @@ const App = () => {
       <Row xs={1} md={4} className="g-4">
           {
             songs.map((song, index) => {
+              console.log({ song })
                 return (
                   <Col key={index}>
                     <Card>
@@ -57,7 +60,12 @@ const App = () => {
                       <Card.Body>
                         <Card.Text>{song.duration}</Card.Text>
                         <Card.Title>{song.title_short}</Card.Title>
-                        <Card.Link style={{ cursor: 'pointer' }}>By {song.artist.name}</Card.Link>
+                        <Card.Link
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => navigate(`/artist/${song.artist.id}`)}
+                        >
+                          By {song.artist.name}
+                        </Card.Link>
                       </Card.Body>
                     </Card>
                   </Col>
